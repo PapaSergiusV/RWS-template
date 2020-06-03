@@ -1,18 +1,18 @@
 let path = require("path");
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 let conf = {
-  entry: "./src/app/index.jsx",
+  entry: "./src/js/index.js",
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: path.resolve(__dirname, "./build"),
     filename: "main.js",
     publicPath: ""
   },
   devServer: {
     overlay: true,
-    contentBase: './src',
+    contentBase: "./src",
     watchContentBase: true
   },
   module: {
@@ -31,23 +31,19 @@ let conf = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract(
           {
-            fallback: 'style-loader',
-            use: ['css-loader', 'sass-loader']
+            fallback: "style-loader",
+            use: ["css-loader", "sass-loader"]
           })
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin(
-      {
-        filename: 'style.css'
-      }
-    ),
+    new ExtractTextPlugin({
+      filename: "style.css"
+    }),
     new HtmlWebpackPlugin({
-      inject: false,
-      hash: true,
-      template: './src/index.html',
-      filename: 'index.html'
+      template: "./public/index.html",
+      filename: "index.html"
     })
   ]
 }
