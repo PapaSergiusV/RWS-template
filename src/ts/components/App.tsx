@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
 
-const App = () => {
+const App: React.FC = (): JSX.Element => {
+  const text = 'text';
   return (
     <div>
-      <h1>working</h1>
+      <h1>{text}</h1>
     </div>
   );
 };
