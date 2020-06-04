@@ -4,10 +4,17 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 let conf = {
-  entry: "./src/js/index.js",
+  mode: "none",
+  entry: {
+    app: path.join(__dirname, 'src/ts', 'index.tsx')
+  },
+  target: 'web',
+  resolve: {
+      extensions: ['.ts', '.tsx', '.js']
+  },
   output: {
     path: path.resolve(__dirname, "./build"),
-    filename: "main.js",
+    filename: "[hash]-main.js",
     publicPath: ""
   },
   devServer: {
@@ -18,13 +25,8 @@ let conf = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        loader: "babel-loader",
-        exclude: "/node_modules/"
-      },
-      {
-        test: /\.jsx$/,
-        loader: "babel-loader",
+        test: /\.tsx?$/,
+        loader: "ts-loader",
         exclude: "/node_modules/"
       },
       {
@@ -39,7 +41,7 @@ let conf = {
   },
   plugins: [
     new ExtractTextPlugin({
-      filename: "style.css"
+      filename: "[hash]-style.css"
     }),
     new HtmlWebpackPlugin({
       template: "./public/index.html",
