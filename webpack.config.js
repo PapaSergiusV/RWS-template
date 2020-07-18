@@ -2,6 +2,7 @@ let path = require("path");
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 let conf = {
   mode: "none",
@@ -10,17 +11,22 @@ let conf = {
   },
   target: 'web',
   resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.tsx', '.js']
   },
   output: {
     path: path.resolve(__dirname, "./build"),
     filename: "[hash]-main.js",
     publicPath: ""
   },
+  optimization: {
+    minimizer: [new UglifyJsPlugin()],
+  },
   devServer: {
     overlay: true,
     contentBase: "./src",
-    watchContentBase: true
+    watchContentBase: true,
+    historyApiFallback: true
+
   },
   module: {
     rules: [
